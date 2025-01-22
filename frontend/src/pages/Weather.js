@@ -8,7 +8,7 @@ const Weather = ({ onSearchChange }) => {
   const loadOptions = async (inputValue) => {
     return fetch(
       `${GEO_API_URL}/cities?minPopulation=10000&namePrefix=${inputValue}`,
-      GeoApiOptions
+      GeoApiOptions,
     )
       .then((response) => response.json())
       .then((response) => {

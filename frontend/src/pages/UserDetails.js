@@ -6,14 +6,14 @@ export default function UserDetails() {
   const [userData, setUserData] = useState("");
 
   useEffect(() => {
-
-      // Заглушка вместо реального API-запроса
+    // Заглушка вместо реального API-запроса
     const token = window.localStorage.getItem("token");
 
     if (!token) {
       alert("No token found. Please log in.");
       window.location.href = "./login";
-    } else if (token === "fake-token") { // Проверка фиктивного токена
+    } else if (token === "fake-token") {
+      // Проверка фиктивного токена
       // Симуляция ответа сервера
       const fakeData = {
         name: "John Doe",
@@ -28,8 +28,8 @@ export default function UserDetails() {
       window.location.href = "./login";
     }
   }, []);
-  
-    /*
+
+  /*
     fetch("http://localhost:5000/userData", {
       method: "POST",
       crossDomain: true,

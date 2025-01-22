@@ -1,10 +1,9 @@
 # Weather-Forecast
-register/login react.js, nest.js, postgreSQL, JWT, https://openweathermap.org/, https://www.chartjs.org/, https://apexcharts.com/. 
 
+register/login react.js, nest.js, postgreSQL, JWT, https://openweathermap.org/, https://www.chartjs.org/, https://apexcharts.com/.
 
-
-Заменить MONGO db на PostgreSQL (локальную БД) с использованием Nest.js 
-чтобы запросы с FE шли обработчику запросов в BE и он переносил запрос на PostgreSQL 
+Заменить MONGO db на PostgreSQL (локальную БД) с использованием Nest.js
+чтобы запросы с FE шли обработчику запросов в BE и он переносил запрос на PostgreSQL
 
 # Weather App
 
@@ -12,11 +11,13 @@ register/login react.js, nest.js, postgreSQL, JWT, https://openweathermap.org/, 
 
 Для коректної роботи програми необхідно встановити такі залежності:
 
-``` bash
+```bash
 npm install
-````
+```
+
 Якщо при запуску будуть проблеми, то рекомендуються індивідуально встановити/оновити залежності:
-``` bash
+
+```bash
 npm install react-scripts
 npm install concurrently --save-dev
 npm install react-accessible-accordion
@@ -27,12 +28,16 @@ npm install cors
 npm install bcryptjs
 npm install jsonwebtoken
 npm install nodemailer
-````
-
 
 
 npm install @nestjs/typeorm typeorm pg bcrypt @nestjs/passport passport passport-jwt jsonwebtoken
 npm install --save-dev @types/passport-jwt
+
+npm install @nestjs/jwt @nestjs/passport passport passport-jwt bcrypt class-validator class-transformer
+
+
+```
+
 
 
 
@@ -42,9 +47,9 @@ npm install --save-dev @types/passport-jwt
 
 Для одночасного запуску фронтенду (FE) та бекенду (BE) виконайте наступну команду в терміналі:
 
-``` bash
+```bash
 npm run start
-````
+```
 
 ### Альтернативний запуск (окремо)
 
@@ -52,21 +57,21 @@ npm run start
 
 - Запуск клієнтської частини (Frontend):
 
- ``` bash
- npm run start-front
- ````
+```bash
+npm run start-front
+```
 
 - Запуск серверної частини (Backend):
 
- ``` bash
- npm run start-back
- ````
+```bash
+npm run start-back
+```
 
 Після успішного запуску відкриється посилання на програму:
 
-````
+```
 http://localhost:3000/login
-````
+```
 
 ## Функціонал програми
 
@@ -84,19 +89,20 @@ http://localhost:3000/login
 2. У головному вікні натисніть **Add new connection**.
 3. У полі URL вставте посилання:
 
- ````
- mongodb+srv://<db_username>:<db_password>@weather-app.cltrc.mongodb.net/
- ````
+```
+mongodb+srv://<db_username>:<db_password>@weather-app.cltrc.mongodb.net/
+```
 
- Замініть такі параметри:
- - `<db_username>`: **new_user01**
- - `<db_password>`: **lbY467f50Cag23q9**
+Замініть такі параметри:
 
- Підсумкове посилання виглядатиме так:
+- `<db_username>`: **new_user01**
+- `<db_password>`: **lbY467f50Cag23q9**
 
- ````
- mongodb+srv://new_user01:lbY467f50Cag23q9@weather-app.cltrc.mongodb.net/
- ````
+Підсумкове посилання виглядатиме так:
+
+```
+mongodb+srv://new_user01:lbY467f50Cag23q9@weather-app.cltrc.mongodb.net/
+```
 
 4. Натисніть зелену кнопку **Save and Connect**.
 
@@ -161,13 +167,18 @@ http://localhost:3000/login
 1. Запишіть `password` та `username`.
 2. Замініть URL на ваші `username`, `password` та назву кластера.
 3. Замініть посилання у кореневому файлі `index.js` на ваш URL:
+
    ```javascript
-   const mongoUrl = "mongodb+srv://<username>:<password>@<cluster-name>.mongodb.net/?retryWrites=true&w=majority&appName=YourAppName";
+   const mongoUrl =
+     "mongodb+srv://<username>:<password>@<cluster-name>.mongodb.net/?retryWrites=true&w=majority&appName=YourAppName";
    ```
 
    Наприклад:
+
    ```javascript
-   const mongoUrl = "mongodb+srv://shtepa:16h74xnfB1gQNWGE@weather-app.cltrc.mongodb.net/?retryWrites=true&w=majority&appName=Weather-app";
+   const mongoUrl =
+     "mongodb+srv://shtepa:16h74xnfB1gQNWGE@weather-app.cltrc.mongodb.net/?retryWrites=true&w=majority&appName=Weather-app";
    ```
+
 4. Запустіть npm run start або npm run start-back.
 5. Бачите в терміналі текст Connected to database - значить працює База Даних

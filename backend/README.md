@@ -1,3 +1,92 @@
+
+
+
+
+
+
+
+npm install
+npm install react-scripts
+npm install concurrently --save-dev
+npm install react-accessible-accordion
+npm install react-select-async-paginate
+npx browserslist@latest --update-db
+npm install webpack-dev-server@latest
+npm i cors
+npm i bcryptjs
+npm i jsonwebtoken
+npm i nodemailer
+
+
+
+```bash
+npm install react-scripts
+npm install concurrently --save-dev
+npm install react-accessible-accordion
+npm install react-select-async-paginate
+npx browserslist@latest --update-db
+npm install webpack-dev-server@latest
+npm install cors
+npm install bcryptjs
+npm install jsonwebtoken
+npm install nodemailer
+
+
+npm install @nestjs/typeorm typeorm pg bcrypt @nestjs/passport passport passport-jwt jsonwebtoken
+npm install --save-dev @types/passport-jwt
+
+npm install @nestjs/jwt @nestjs/passport passport passport-jwt bcrypt class-validator class-transformer
+
+npm install @nestjs/typeorm typeorm pg
+npm install --save @nestjs/config
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>

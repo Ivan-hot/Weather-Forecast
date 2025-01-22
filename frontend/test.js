@@ -16,7 +16,7 @@
 // //     // getAllUser();
 // //   //  handlePageClick();
 // //   getPaginatedData();
- 
+
 // //   });
 
 // //   const getPaginatedData=()=>{
@@ -105,7 +105,6 @@
 
 // // function limitChanged(e){
 
-
 // // fetch(`http://localhost:5000/users?page=${movies.current}&limit=${limit}`, {
 // //   method: "GET",
 // // })
@@ -117,7 +116,6 @@
 // //    movies.current=1
 // //   });
 // // }
-
 
 // //   return (
 // //     <div className="auth-wrapper" style={{height:"auto"}}>
@@ -158,9 +156,8 @@
 // //         breakClassName="page-item"
 // //         breakLinkClassName="page-link"
 
-     
 // //         marginPagesDisplayed={2}
-      
+
 // //         containerClassName="pagination justify-content-center"
 // //         pageClassName="page-item"
 // //         pageLinkClassName="page-link"
@@ -242,7 +239,6 @@
 
 // // export default Navbar;
 
-
 // // import React from "react";
 // // import {
 // //   BrowserRouter as Router,
@@ -313,7 +309,6 @@
 
 // // export default App;
 
-
 // import React from "react";
 // import {
 //   BrowserRouter as Router,
@@ -383,4 +378,3 @@
 // }
 
 // export default App;
-

@@ -11,18 +11,17 @@ export default function Login() {
     if (email && password) {
       console.log("Login successful");
       alert("Login successful");
-    
-    // Сохраняем фиктивные данные в localStorage
-    window.localStorage.setItem("token", "fake-token");
-    window.localStorage.setItem("userType", "user"); // Тип пользователя, например, "admin" или "user"
-    window.localStorage.setItem("loggedIn", true);
-    
 
-    window.location.href = "./userDetails";
-  } else {
-    alert("Please enter email and password");
-  }
-  
+      // Сохраняем фиктивные данные в localStorage
+      window.localStorage.setItem("token", "fake-token");
+      window.localStorage.setItem("userType", "user"); // Тип пользователя, например, "admin" или "user"
+      window.localStorage.setItem("loggedIn", true);
+
+      window.location.href = "./userDetails";
+    } else {
+      alert("Please enter email and password");
+    }
+
     /*
     console.log(email, password);
     fetch("http://localhost:5000/login-user", {
@@ -54,8 +53,6 @@ export default function Login() {
       });
       */
   }
-
-  
 
   return (
     <div className="auth-wrapper">
