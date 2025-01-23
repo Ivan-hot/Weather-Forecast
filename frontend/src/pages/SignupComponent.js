@@ -6,34 +6,66 @@ export default function SignUp() {
   const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [userType] = useState("");
+  const [errors, setErrors] = useState({}); // для хранения ошибок валидации
+
+  const validateForm = () => {
+    const newErrors = {};
+    
+    if (!fname.trim()) {
+      newErrors.fname = "First name is required";
+    }
+    
+    if (!lname.trim()) {
+      newErrors.lname = "Last name is required";
+    }
+    
+    if (!email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      newErrors.email = "Email is invalid";
+    }
+    
+    if (!password.trim()) {
+      newErrors.password = "Password is required";
+    } else if (password.length < 6) {
+      newErrors.password = "Password must be at least 6 characters";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0; // возвращает true если ошибок нет
+  };
 
   const handleSubmit = (e) => {
-    console.log(fname, lname, email, password);
-    fetch("http://localhost:5000/register", {
+    e.preventDefault();
+    
+    if (!validateForm()) {
+      return; // останавливаем отправку если есть ошибки
+    }
+  
+    fetch("http://localhost:5000/auth/register", {
       method: "POST",
-      crossDomain: true,
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify({
-        fname,
+        firstName: fname,
+        lastName: lname,
         email,
-        lname,
         password,
-        userType,
       }),
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data, "userRegister");
-        if (data.status === "ok") {
+        if (data.message === "User registered successfully") {
           alert("Registration Successful");
+          window.location.href = "./login";
         } else {
-          alert("Something went wrong");
+          alert(data.message || "Registration failed");
         }
+      })
+      .catch((err) => {
+        console.error("Error:", err);
+        alert("Something went wrong. Please try again.");
       });
   };
 
@@ -42,53 +74,74 @@ export default function SignUp() {
       <div className="auth-inner">
         <form onSubmit={handleSubmit}>
           <h3>Register</h3>
+          
           <div className="mb-3">
             <label>First name</label>
             <input
               type="text"
-              className="form-control"
+              className={`form-control ${errors.fname ? 'is-invalid' : ''}`}
               placeholder="First name"
-              onChange={(e) => setFname(e.target.value)}
+              value={fname}
+              onChange={(e) => {
+                setFname(e.target.value);
+                setErrors({...errors, fname: ''});
+              }}
             />
+            {errors.fname && <div className="invalid-feedback">{errors.fname}</div>}
           </div>
 
           <div className="mb-3">
             <label>Last name</label>
             <input
               type="text"
-              className="form-control"
+              className={`form-control ${errors.lname ? 'is-invalid' : ''}`}
               placeholder="Last name"
-              onChange={(e) => setLname(e.target.value)}
+              value={lname}
+              onChange={(e) => {
+                setLname(e.target.value);
+                setErrors({...errors, lname: ''});
+              }}
             />
+            {errors.lname && <div className="invalid-feedback">{errors.lname}</div>}
           </div>
 
           <div className="mb-3">
             <label>Email address</label>
             <input
               type="email"
-              className="form-control"
+              className={`form-control ${errors.email ? 'is-invalid' : ''}`}
               placeholder="Enter email"
-              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setErrors({...errors, email: ''});
+              }}
             />
+            {errors.email && <div className="invalid-feedback">{errors.email}</div>}
           </div>
 
           <div className="mb-3">
             <label>Password</label>
             <input
               type="password"
-              className="form-control"
+              className={`form-control ${errors.password ? 'is-invalid' : ''}`}
               placeholder="Enter password"
-              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setErrors({...errors, password: ''});
+              }}
             />
+            {errors.password && <div className="invalid-feedback">{errors.password}</div>}
           </div>
 
           <div className="d-grid">
             <button type="submit" className="btn btn-primary">
-              Register
+              Sign Up
             </button>
           </div>
           <p className="forgot-password text-right">
-            Already registered <a href="/login">Login?</a>
+            Already registered <a href="/login">sign in?</a>
           </p>
         </form>
       </div>

@@ -1,7 +1,7 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from '../users/enitiy/user.entity';
+import { User } from '../user/enitiy/user.entity';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 
@@ -13,7 +13,7 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async register(email: string, password: string): Promise<any> {
+  async register(firstName: string, lastName: string, email: string, password: string): Promise<any> {
     const existingUser = await this.userRepository.findOne({
       where: { email },
     });
@@ -24,10 +24,13 @@ export class AuthService {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = this.userRepository.create({
+      firstName,
+      lastName,
       email,
       password: hashedPassword,
     });
-    await this.userRepository.save(newUser);
+    const user =  await this.userRepository.save(newUser);
+    console.log('User saved:', user);
 
     return { message: 'User registered successfully' };
   }
@@ -42,7 +45,6 @@ export class AuthService {
     const token = this.jwtService.sign({
       id: user.id,
       email: user.email,
-      role: user.role,
     });
     return { message: 'Login successful', token };
   }

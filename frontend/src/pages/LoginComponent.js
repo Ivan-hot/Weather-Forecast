@@ -6,53 +6,44 @@ export default function Login() {
 
   function handleSubmit(e) {
     e.preventDefault();
-
-    // Временная заглушка
+  
     if (email && password) {
-      console.log("Login successful");
-      alert("Login successful");
-
-      // Сохраняем фиктивные данные в localStorage
-      window.localStorage.setItem("token", "fake-token");
-      window.localStorage.setItem("userType", "user"); // Тип пользователя, например, "admin" или "user"
-      window.localStorage.setItem("loggedIn", true);
-
-      window.location.href = "./userDetails";
+      fetch("http://localhost:5000/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.token) {
+            console.log("Login successful", data.token);
+            alert("Login successful");
+  
+            // Сохраняем токен и другую информацию в localStorage
+            window.localStorage.setItem("token", data.token);
+            window.localStorage.setItem("userType", data.userType || "user");
+            window.localStorage.setItem("loggedIn", true);
+  
+            window.location.href = "./userDetails";
+            // window.location.href = "./Weather";
+          } else {
+            alert(data.message || "Login failed");
+          }
+        })
+        .catch((err) => {
+          console.error("Error:", err);
+          alert("Something went wrong. Please try again.");
+        });
     } else {
       alert("Please enter email and password");
     }
-
-    /*
-    console.log(email, password);
-    fetch("http://localhost:5000/login-user", {
-      method: "POST",
-      crossDomain: true,
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    })
-      
-  
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data, "userRegister");
-        if (data.status === "ok") {
-          console.log(data.userType);
-          alert("login successful");
-          window.localStorage.setItem("token", data.data);
-          window.localStorage.setItem("userType", data.userType);
-          window.localStorage.setItem("loggedIn", true);
-          window.location.href = "./userDetails";
-        }
-      });
-      */
   }
+  
 
   return (
     <div className="auth-wrapper">

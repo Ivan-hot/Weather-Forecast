@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 //import { MessagesModule } from './messages/messages.module';
-// import { UsersModule } from './user/users.module';
+import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -31,6 +31,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       inject: [ConfigService],
     }),
     AuthModule,
+    UserModule,
     //UsersModule,
     //MessagesModule,
   ],
