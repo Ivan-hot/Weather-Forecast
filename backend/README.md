@@ -40,6 +40,9 @@ npm install @nestjs/jwt @nestjs/passport passport passport-jwt bcrypt class-vali
 npm install @nestjs/typeorm typeorm pg
 npm install --save @nestjs/config
 
+npm install chart.js react-chartjs-2
+
+
 ```
 
 

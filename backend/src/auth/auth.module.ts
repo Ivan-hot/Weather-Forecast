@@ -22,3 +22,4 @@ const JWT_SECRET = 'my-secret-key'; // Временно определим зд�
   exports: [JwtModule],
 })
 export class AuthModule {}
+
