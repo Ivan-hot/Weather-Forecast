@@ -13,7 +13,6 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 
-// Регистрируем компоненты Chart.js
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -26,7 +25,6 @@ ChartJS.register(
 );
 
 const HourlyForecastWidget = ({ data }) => {
-    // Получаем прогноз на текущий день (первые 8 записей, так как каждая запись - это 3 часа)
     const hourlyData = data.list.slice(0, 8);
 
     const chartData = {
@@ -85,7 +83,7 @@ const HourlyForecastWidget = ({ data }) => {
         <div className="hourly-forecast">
             <label className="label">Today's Hourly Forecast</label>
 
-            {/* Графік температури */}
+            {}
             <div className="chart-container">
                 <Line options={options} data={chartData} />
             </div>

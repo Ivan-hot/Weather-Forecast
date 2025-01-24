@@ -99,7 +99,7 @@ function App() {
       <div className="App">
         <Navbar isLoggedIn={isLoggedIn} userType={userType} />
 
-        {/* Delete Confirmation Modal */}
+        {}
         {showDeleteModal && (
           <div className="modal show d-block" tabIndex="-1" style={{backgroundColor: 'rgba(0,0,0,0.5)'}}>
             <div className="modal-dialog">
@@ -121,7 +121,7 @@ function App() {
         )}
 
         <Routes>
-          {/* unauthorized route */}
+          {}
           {!isLoggedIn && (
             <>
               <Route path="/login" element={<Login />} />
@@ -130,7 +130,7 @@ function App() {
             </>
           )}
 
-          {/* ProtectedRoutes */}
+          {}
           <Route element={<ProtectedRoute />}>
             <Route path="/login" element={<Navigate to="/" />} />
             <Route path="/register" element={<Navigate to="/" />} />

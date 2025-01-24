@@ -24,13 +24,11 @@ export default function Login() {
             console.log("Login successful", data.token);
             alert("Login successful");
   
-            // Сохраняем токен и другую информацию в localStorage
             window.localStorage.setItem("token", data.token);
             window.localStorage.setItem("userType", data.userType || "user");
             window.localStorage.setItem("loggedIn", true);
   
             window.location.href = "./userDetails";
-            // window.location.href = "./Weather";
           } else {
             alert(data.message || "Login failed");
           }

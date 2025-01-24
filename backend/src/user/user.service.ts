@@ -13,7 +13,7 @@ export class UserService {
   async getUserData(userId: number) {
     const user = await this.userRepository.findOne({
       where: { id: userId },
-      select: ['id', 'email', 'firstName', 'lastName'] // исключаем пароль из ответа
+      select: ['id', 'email', 'firstName', 'lastName']
     });
 
     if (!user) {
@@ -21,7 +21,7 @@ export class UserService {
       }
 
     return {
-        fname: user.firstName, // преобразуем firstName в fname
+        fname: user.firstName,
         email: user.email,
         id: user.id,
         lastName: user.lastName

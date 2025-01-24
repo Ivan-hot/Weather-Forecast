@@ -25,4 +25,3 @@ app.get("/users", async (req, res) => {
   res.json(results);
 });
 
-//   GET http://localhost:5000/users?page=1&limit=4

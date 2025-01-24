@@ -6,7 +6,7 @@ export default function SignUp() {
   const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({}); // для хранения ошибок валидации
+  const [errors, setErrors] = useState({});
 
   const validateForm = () => {
     const newErrors = {};
@@ -32,14 +32,14 @@ export default function SignUp() {
     }
 
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0; // возвращает true если ошибок нет
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     
     if (!validateForm()) {
-      return; // останавливаем отправку если есть ошибки
+      return;
     }
   
     fetch("http://localhost:5000/auth/register", {
