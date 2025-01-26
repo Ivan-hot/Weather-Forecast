@@ -20,6 +20,9 @@
     gap: 20px;
     padding: 10px 0;
     margin-top: 20px;
+    margin: 10px 0px 0px;
+    justify-content: space-between; /* Add this line */
+    flex-wrap: wrap; /* Add this line if you want items to wrap */
 }
 
 .hourly-item {

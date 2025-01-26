@@ -107,7 +107,7 @@ const HourlyForecastWidget = ({ data, forecastType }) => {
                                 src={`icons/${item.weather[0].icon}.png`}
                             />
                             <span className="temperature">
-                                {Math.round(item.main.temp)}°C
+                                {Math.round(item.main.temp)} °C
                             </span>
                         </div>
                     );
