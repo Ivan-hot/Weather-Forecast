@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from 'axios';
 import { AsyncPaginate } from "react-select-async-paginate";
 import { GeoApiOptions, GEO_API_URL } from "../api/Api";
 import "../styles/Weather.css";
@@ -8,6 +9,10 @@ const Weather = ({ onSearchChange }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const [favorites, setFavorites] = useState([]);
+  const [showMaxFavoritesModal, setShowMaxFavoritesModal] = useState(false);
+  const [activeTab, setActiveTab] = useState('weather');
+
 
   const Loader = () => (
     <div className="loader-container">
@@ -104,6 +109,31 @@ const Weather = ({ onSearchChange }) => {
 
     getUserLocation();
   }, [onSearchChange, isInitialLoad]);
+
+  const addToFavorites = async (cityName) => {
+    try {
+      await axios.post(`api/favorites/${cityName}`);
+      fetchFavorites();
+    } catch (error) {
+      if (error.response?.status === 400) {
+        setShowMaxFavoritesModal(true);
+      }
+    }
+  };
+
+  const removeFavorite = async (cityName) => {
+    await axios.delete(`api/favorites/${cityName}`);c
+    fetchFavorites();
+  };
+
+  const fetchFavorites = async () => {
+    const response = await axios.get('api/favorites');
+    setFavorites(response.data);
+  };
+
+  useEffect(() => {
+    fetchFavorites();
+  }, []);
 
   return (
     <div className="weather-page">

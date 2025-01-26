@@ -4,17 +4,19 @@ import CurrentWeather from './CurrentWeather';
 import HourlyForecastWidget from './HourlyForecastWidget';
 import Forecast from './Forecast';
 
-const WeatherBlock = ({ block, onDelete, onSearchChange, showDeleteButton, forecastType }) => {
+const WeatherBlock = ({ block, onDelete, onSearchChange, showDeleteButton, forecastType,
+  cityData, isFavorite, onAddFavorite, onRemoveFavorite }) => {
   return (
-    <div className="weather-block" style={{ 
-      marginBottom: '2rem', 
-      padding: '1rem', 
-      border: '1px solid #ddd', 
+    <div className={`weather-block ${isFavorite ? 'favorite' : ''}`} style={{
+      marginBottom: '2rem',
+      padding: '1rem',
+      border: '1px solid #ddd',
       borderRadius: '8px',
-      position: 'relative' 
+      position: 'relative'
+
     }}>
       {showDeleteButton && (
-        <button
+        <><button
           onClick={() => onDelete(block.id)}
           style={{
             position: 'absolute',
@@ -40,15 +42,26 @@ const WeatherBlock = ({ block, onDelete, onSearchChange, showDeleteButton, forec
         >
           ×
         </button>
-      )}
+      </>)}
+      <button 
+        // onClick={() => cityData && cityData.name ? (isFavorite ? onRemoveFavorite(cityData.name) : onAddFavorite(cityData.name)) : null}
+        onClick={() => isFavorite ? onRemoveFavorite(cityData.name) : onAddFavorite(cityData.name)}
+        className="favorite-button"
+      >
+        {isFavorite ? '★' : '☆'}
+      </button>
+
+      
       <Weather onSearchChange={(data) => onSearchChange(data, block.id)} />
-      {block.currentWeather && <CurrentWeather data={block.currentWeather} />}
-      {block.forecast && (
-        <>
-          <HourlyForecastWidget data={block.forecast} forecastType={forecastType} />
-          <Forecast data={block.forecast} forecastType={forecastType} />
-        </>
-      )}
+      { block.currentWeather && <CurrentWeather data={block.currentWeather} /> }
+      {
+        block.forecast && (
+          <>
+            <HourlyForecastWidget data={block.forecast} forecastType={forecastType} />
+            <Forecast data={block.forecast} forecastType={forecastType} />
+          </>
+        )
+      }
     </div>
   );
 };
