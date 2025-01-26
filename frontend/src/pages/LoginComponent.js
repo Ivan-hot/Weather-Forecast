@@ -6,7 +6,7 @@ export default function Login() {
 
   function handleSubmit(e) {
     e.preventDefault();
-  
+
     if (email && password) {
       fetch("http://localhost:5000/auth/login", {
         method: "POST",
@@ -23,14 +23,12 @@ export default function Login() {
           if (data.token) {
             console.log("Login successful", data.token);
             alert("Login successful");
-  
-            // Сохраняем токен и другую информацию в localStorage
+
             window.localStorage.setItem("token", data.token);
             window.localStorage.setItem("userType", data.userType || "user");
             window.localStorage.setItem("loggedIn", true);
-  
+
             window.location.href = "./userDetails";
-            // window.location.href = "./Weather";
           } else {
             alert(data.message || "Login failed");
           }
@@ -43,7 +41,7 @@ export default function Login() {
       alert("Please enter email and password");
     }
   }
-  
+
 
   return (
     <div className="auth-wrapper">

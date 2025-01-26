@@ -1,36 +1,112 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AsyncPaginate } from "react-select-async-paginate";
 import { GeoApiOptions, GEO_API_URL } from "../api/Api";
+import "../styles/Weather.css";
 
 const Weather = ({ onSearchChange }) => {
   const [weather, setSearch] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+
+  const Loader = () => (
+    <div className="loader-container">
+      <div className="loader"></div>
+      <p>Loading...</p>
+    </div>
+  );
 
   const loadOptions = async (inputValue) => {
-    return fetch(
-      `${GEO_API_URL}/cities?minPopulation=10000&namePrefix=${inputValue}`,
-      GeoApiOptions,
-    )
-      .then((response) => response.json())
-      .then((response) => {
+    setIsSearching(true);
+    try {
+      const response = await fetch(
+        `${GEO_API_URL}/cities?minPopulation=10000&namePrefix=${inputValue}`,
+        GeoApiOptions
+      );
+      
+      const result = await response.json();
+      
+      if (!result.data) {
         return {
-          options: response.data.map((city) => {
-            return {
-              value: `${city.latitude} ${city.longitude}`,
-              label: `${city.name}, ${city.countryCode}`,
-            };
-          }),
+          options: []
         };
-      })
-      .catch((err) => console.error(err));
+      }
+
+      return {
+        options: result.data.map((city) => ({
+          value: `${city.latitude} ${city.longitude}`,
+          label: `${city.name}, ${city.countryCode}`,
+        }))
+      };
+    } catch (err) {
+      console.error("Error loading options:", err);
+      return {
+        options: []
+      };
+    } finally {
+      setIsSearching(false);
+    }
   };
 
   const handleOnChange = (searchData) => {
     setSearch(searchData);
-    onSearchChange(searchData);
+    if (searchData) {
+      setIsSearching(true);
+      onSearchChange(searchData);
+      setTimeout(() => setIsSearching(false), 1000);
+    }
   };
 
+  useEffect(() => {
+    const getUserLocation = async () => {
+      if (!isInitialLoad) return;
+      
+      setIsLoading(true);
+      try {
+        // Получаем IP через ipify API
+        const ipResponse = await fetch('https://api.ipify.org?format=json');
+        const ipData = await ipResponse.json();
+        
+        // Получаем геолокацию по IP через ip-api
+        const locationResponse = await fetch(`http://ip-api.com/json/${ipData.ip}`);
+        const locationData = await locationResponse.json();
+        
+        if (locationResponse.ok && locationData.status === 'success') {
+          const cityData = {
+            value: `${locationData.lat} ${locationData.lon}`,
+            label: `${locationData.city}, ${locationData.countryCode}`,
+          };
+          
+          setSearch(cityData);
+          onSearchChange(cityData);
+        } else {
+          console.warn('Could not determine location, using default');
+          const defaultCity = {
+            value: "50.4501 30.5234",
+            label: "Kiev, UA"
+          };
+          setSearch(defaultCity);
+          onSearchChange(defaultCity);
+        }
+      } catch (error) {
+        console.error('Error fetching user location:', error);
+        const defaultCity = {
+          value: "50.4501 30.5234",
+          label: "Kiev, UA"
+        };
+        setSearch(defaultCity);
+        onSearchChange(defaultCity);
+      } finally {
+        setIsLoading(false);
+        setIsInitialLoad(false);
+      }
+    };
+
+    getUserLocation();
+  }, [onSearchChange, isInitialLoad]);
+
   return (
-    <div>
+    <div className="weather-page">
       <h1>Weather Page</h1>
       <AsyncPaginate
         placeholder="Search for city"
@@ -38,43 +114,11 @@ const Weather = ({ onSearchChange }) => {
         value={weather}
         onChange={handleOnChange}
         loadOptions={loadOptions}
+        isLoading={isSearching}
       />
+      {isLoading && <Loader />}
     </div>
   );
 };
 
 export default Weather;
-
-/*
-function Weather() {
-  return <h1>Weather Page</h1>;
-  
-}
-export default Weather;
-*/
-
-/*
-import React, { Component, useEffect, useState } from "react";
-import "../App.css";
-export default function UserHome({ userData }) {
-  const logOut = () => {
-    window.localStorage.clear();
-    window.location.href = "./login";
-  };
-  return (
-    <div className="auth-wrapper">
-      <div className="auth-inner">
-        <div>
-          Name<h1>{userData.fname}</h1>
-          Email <h1>{userData.email}</h1>
-          <br />
-          <button onClick={logOut} className="btn btn-primary">
-            Log Out
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-*/

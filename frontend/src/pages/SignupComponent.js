@@ -6,25 +6,25 @@ export default function SignUp() {
   const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({}); // для хранения ошибок валидации
+  const [errors, setErrors] = useState({});
 
   const validateForm = () => {
     const newErrors = {};
-    
+
     if (!fname.trim()) {
       newErrors.fname = "First name is required";
     }
-    
+
     if (!lname.trim()) {
       newErrors.lname = "Last name is required";
     }
-    
+
     if (!email.trim()) {
       newErrors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(email)) {
       newErrors.email = "Email is invalid";
     }
-    
+
     if (!password.trim()) {
       newErrors.password = "Password is required";
     } else if (password.length < 6) {
@@ -32,16 +32,16 @@ export default function SignUp() {
     }
 
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0; // возвращает true если ошибок нет
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
-      return; // останавливаем отправку если есть ошибки
+      return;
     }
-  
+
     fetch("http://localhost:5000/auth/register", {
       method: "POST",
       headers: {
@@ -74,7 +74,7 @@ export default function SignUp() {
       <div className="auth-inner">
         <form onSubmit={handleSubmit}>
           <h3>Register</h3>
-          
+
           <div className="mb-3">
             <label>First name</label>
             <input
@@ -84,7 +84,7 @@ export default function SignUp() {
               value={fname}
               onChange={(e) => {
                 setFname(e.target.value);
-                setErrors({...errors, fname: ''});
+                setErrors({ ...errors, fname: '' });
               }}
             />
             {errors.fname && <div className="invalid-feedback">{errors.fname}</div>}
@@ -99,7 +99,7 @@ export default function SignUp() {
               value={lname}
               onChange={(e) => {
                 setLname(e.target.value);
-                setErrors({...errors, lname: ''});
+                setErrors({ ...errors, lname: '' });
               }}
             />
             {errors.lname && <div className="invalid-feedback">{errors.lname}</div>}
@@ -114,7 +114,7 @@ export default function SignUp() {
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
-                setErrors({...errors, email: ''});
+                setErrors({ ...errors, email: '' });
               }}
             />
             {errors.email && <div className="invalid-feedback">{errors.email}</div>}
@@ -129,7 +129,7 @@ export default function SignUp() {
               value={password}
               onChange={(e) => {
                 setPassword(e.target.value);
-                setErrors({...errors, password: ''});
+                setErrors({ ...errors, password: '' });
               }}
             />
             {errors.password && <div className="invalid-feedback">{errors.password}</div>}

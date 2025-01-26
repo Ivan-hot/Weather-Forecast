@@ -33,9 +33,9 @@ const DeleteBlock = ({ showModal, onCancel, onConfirm, onDelete, showDeleteButto
         </button>
       )}
 
-      {/* Delete Confirmation Modal */}
+      { }
       {showModal && (
-        <div className="modal show d-block" tabIndex="-1" style={{backgroundColor: 'rgba(0,0,0,0.5)'}}>
+        <div className="modal show d-block" tabIndex="-1" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">

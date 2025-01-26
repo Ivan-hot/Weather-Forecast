@@ -3,8 +3,7 @@ import { snakeCase } from "lodash";
 
 export class SnakeCaseNamingStrategy
   extends DefaultNamingStrategy
-  implements NamingStrategyInterface
-{
+  implements NamingStrategyInterface {
   tableName(targetName: string, userSpecifiedName?: string): string {
     return userSpecifiedName ? userSpecifiedName : snakeCase(targetName);
   }
@@ -23,7 +22,7 @@ export class SnakeCaseNamingStrategy
 
   joinTableName(firstTableName: string, secondTableName: string, firstPropertyName: string, secondPropertyName: string): string {
     return snakeCase(`${firstTableName}_${secondTableName}`);
-  }  
+  }
 
   joinColumnName(relationName: string, referencedColumnName: string): string {
     return snakeCase(`${relationName}_${referencedColumnName}`);

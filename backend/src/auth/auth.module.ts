@@ -6,7 +6,7 @@ import { User } from '../user/enitiy/user.entity';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 
-const JWT_SECRET = 'my-secret-key'; // Временно определим здесь
+const JWT_SECRET = 'my-secret-key';
 
 @Module({
   imports: [
@@ -21,5 +21,5 @@ const JWT_SECRET = 'my-secret-key'; // Временно определим зд�
   providers: [AuthService],
   exports: [JwtModule],
 })
-export class AuthModule {}
+export class AuthModule { }
 

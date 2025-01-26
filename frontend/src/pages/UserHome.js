@@ -15,7 +15,7 @@ export default function UserHome({ userData }) {
     <div className="auth-wrapper">
       <div className="auth-inner">
         <div>
-        <h2>User Profile</h2>
+          <h2>User Profile</h2>
           <p><strong>Name:</strong> {userData.fname || 'N/A'}</p>
           <p><strong>Email:</strong> {userData.email || 'N/A'}</p>
           <br />

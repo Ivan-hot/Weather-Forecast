@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-//import { MessagesModule } from './messages/messages.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -32,10 +31,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     }),
     AuthModule,
     UserModule,
-    //UsersModule,
-    //MessagesModule,
   ],
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule { }
