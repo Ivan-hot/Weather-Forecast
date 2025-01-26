@@ -4,7 +4,7 @@ import CurrentWeather from './CurrentWeather';
 import HourlyForecastWidget from './HourlyForecastWidget';
 import Forecast from './Forecast';
 
-const WeatherBlock = ({ block, onDelete, onSearchChange, showDeleteButton }) => {
+const WeatherBlock = ({ block, onDelete, onSearchChange, showDeleteButton, forecastType }) => {
   return (
     <div className="weather-block" style={{ 
       marginBottom: '2rem', 
@@ -45,8 +45,8 @@ const WeatherBlock = ({ block, onDelete, onSearchChange, showDeleteButton }) => 
       {block.currentWeather && <CurrentWeather data={block.currentWeather} />}
       {block.forecast && (
         <>
-          <HourlyForecastWidget data={block.forecast} />
-          <Forecast data={block.forecast} />
+          <HourlyForecastWidget data={block.forecast} forecastType={forecastType} />
+          <Forecast data={block.forecast} forecastType={forecastType} />
         </>
       )}
     </div>

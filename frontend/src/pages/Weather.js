@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AsyncPaginate } from "react-select-async-paginate";
 import { GeoApiOptions, GEO_API_URL } from "../api/Api";
+import "../styles/Weather.css";
 
 const Weather = ({ onSearchChange }) => {
   const [weather, setSearch] = useState(null);
@@ -40,6 +41,29 @@ const Weather = ({ onSearchChange }) => {
       onSearchChange(searchData);
     }
   };
+
+  useEffect(() => {
+    const getUserLocation = async () => {
+      try {
+        const response = await fetch('https://ipapi.co/json/');
+        const data = await response.json();
+        
+        const locationData = {
+          value: `${data.latitude} ${data.longitude}`,
+          label: `${data.city}, ${data.country_code}`,
+        };
+        
+        setSearch(locationData);
+        onSearchChange(locationData);
+      } catch (error) {
+        console.error('Error fetching user location:', error);
+      }
+    };
+
+    if (!weather) {
+      getUserLocation();
+    }
+  }, [weather, onSearchChange]);
 
   return (
     <div>

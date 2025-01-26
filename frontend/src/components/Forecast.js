@@ -18,17 +18,27 @@ const WEEK_DAYS = [
   "Sunday",
 ];
 
-const Forecast = ({ data }) => {
+const Forecast = ({ data, forecastType }) => {
   const daiInAWeek = new Date().getDay();
   const forecastDays = WEEK_DAYS.slice(daiInAWeek, WEEK_DAYS.length).concat(
     WEEK_DAYS.slice(0, daiInAWeek),
   );
 
+  const dailyAverages = forecastType === "5day"
+    ? calculateDailyAverages(data.list)
+    : data.list;
+
+  const displayData = forecastType === "5day"
+    ? dailyAverages.slice(0, 5)
+    : data.list.slice(0, 7);
+
   return (
     <>
-      <label className="label">Daily</label>
+      <label className="label">
+        {forecastType === "5day" ? "5-Day Forecast" : "Daily Forecast"}
+      </label>
       <Accordion allowZeroExpanded>
-        {data.list.slice(0, 7).map((item, idx) => (
+        {displayData.map((item, idx) => (
           <AccordionItem key={idx}>
             <AccordionItemHeading>
               <AccordionItemButton>
@@ -82,6 +92,35 @@ const Forecast = ({ data }) => {
       </Accordion>
     </>
   );
+};
+
+const calculateDailyAverages = (hourlyData) => {
+  const dailyData = {};
+  
+  hourlyData.forEach(item => {
+    const date = new Date(item.dt * 1000).toLocaleDateString();
+    if (!dailyData[date]) {
+      dailyData[date] = {
+        temps: [],
+        weather: item.weather,
+        main: { ...item.main },
+        clouds: item.clouds,
+        wind: item.wind,
+        dt: item.dt
+      };
+    }
+    dailyData[date].temps.push(item.main.temp);
+  });
+
+  return Object.values(dailyData).map(day => ({
+    ...day,
+    main: {
+      ...day.main,
+      temp: day.temps.reduce((a, b) => a + b) / day.temps.length,
+      temp_min: Math.min(...day.temps),
+      temp_max: Math.max(...day.temps)
+    }
+  }));
 };
 
 export default Forecast;

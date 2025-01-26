@@ -24,6 +24,8 @@ function App() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [blockToDelete, setBlockToDelete] = useState(null);
 
+  const [forecastType, setForecastType] = useState("daily");
+
   const isLoggedIn = window.localStorage.getItem("loggedIn");
   const userType = window.localStorage.getItem("userType");
 
@@ -113,6 +115,20 @@ function App() {
                   path="/weather"
                   element={
                     <div>
+                      <div className="forecast-toggle">
+                        <button 
+                          className={`toggle-btn ${forecastType === "daily" ? "active" : ""}`}
+                          onClick={() => setForecastType("daily")}
+                        >
+                          Daily
+                        </button>
+                        <button 
+                          className={`toggle-btn ${forecastType === "5day" ? "active" : ""}`}
+                          onClick={() => setForecastType("5day")}
+                        >
+                          5 Day
+                        </button>
+                      </div>
                       {weatherBlocks.map((block) => (
                         <WeatherBlock
                           key={block.id}
@@ -120,6 +136,7 @@ function App() {
                           onDelete={handleDeleteClick}
                           onSearchChange={handleOnSearchChange}
                           showDeleteButton={weatherBlocks.length > 1}
+                          forecastType={forecastType}
                         />
                       ))}
                       <AddCityButton
