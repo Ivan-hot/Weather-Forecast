@@ -9,13 +9,13 @@ export default function UserDetails() {
   useEffect(() => {
     const token = window.localStorage.getItem("token");
     console.log("Current token:", token);
-  
+
     if (!token) {
       alert("No token found. Please log in.");
       window.location.href = "./login";
       return;
     }
-  
+
     fetch("http://localhost:5000/user/userData", {
       method: "POST",
       headers: {
@@ -29,17 +29,17 @@ export default function UserDetails() {
         console.log('Response status:', res.status);
         const data = await res.text();
         console.log('Response data:', data);
-        
+
         try {
           const jsonData = JSON.parse(data);
-          
+
           if (!res.ok) {
             if (res.status === 401 || jsonData.message === "Invalid token") {
               throw new Error("token expired");
             }
             throw new Error(jsonData.message || "Failed to fetch user data");
           }
-          
+
           return jsonData;
         } catch (e) {
           if (e.message === "token expired") {

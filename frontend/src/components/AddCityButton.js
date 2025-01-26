@@ -3,7 +3,7 @@ import React from 'react';
 const AddCityButton = ({ onClick, disabled, maxBlocks }) => {
   return (
     <div style={{ textAlign: 'center' }}>
-      <button 
+      <button
         onClick={onClick}
         disabled={disabled}
         style={{

@@ -21,6 +21,7 @@ npm i nodemailer
 
 ```bash
 npm install react-scripts
+npm install axios
 npm install concurrently --save-dev
 npm install react-accessible-accordion
 npm install react-select-async-paginate

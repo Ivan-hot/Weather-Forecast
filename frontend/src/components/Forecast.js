@@ -96,7 +96,7 @@ const Forecast = ({ data, forecastType }) => {
 
 const calculateDailyAverages = (hourlyData) => {
   const dailyData = {};
-  
+
   hourlyData.forEach(item => {
     const date = new Date(item.dt * 1000).toLocaleDateString();
     if (!dailyData[date]) {

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const AddBlock = ({ onAdd, disabled }) => {
   return (
     <div style={{ textAlign: 'center' }}>
-      <button 
+      <button
         onClick={onAdd}
         disabled={disabled}
         style={{

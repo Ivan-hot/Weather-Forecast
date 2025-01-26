@@ -8,7 +8,7 @@ export class UserService {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
-  ) {}
+  ) { }
 
   async getUserData(userId: number) {
     const user = await this.userRepository.findOne({
@@ -17,14 +17,14 @@ export class UserService {
     });
 
     if (!user) {
-        throw new Error('User not found');
-      }
+      throw new Error('User not found');
+    }
 
     return {
-        fname: user.firstName,
-        email: user.email,
-        id: user.id,
-        lastName: user.lastName
-      };
-    }
+      fname: user.firstName,
+      email: user.email,
+      id: user.id,
+      lastName: user.lastName
+    };
   }
+}

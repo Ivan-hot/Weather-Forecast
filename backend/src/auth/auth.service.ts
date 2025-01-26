@@ -11,7 +11,7 @@ export class AuthService {
     @InjectRepository(User)
     private userRepository: Repository<User>,
     private jwtService: JwtService,
-  ) {}
+  ) { }
 
   async register(firstName: string, lastName: string, email: string, password: string): Promise<any> {
     const existingUser = await this.userRepository.findOne({
@@ -29,7 +29,7 @@ export class AuthService {
       email,
       password: hashedPassword,
     });
-    const user =  await this.userRepository.save(newUser);
+    const user = await this.userRepository.save(newUser);
     console.log('User saved:', user);
 
     return { message: 'User registered successfully' };
